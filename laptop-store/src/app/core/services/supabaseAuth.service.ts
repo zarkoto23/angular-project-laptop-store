@@ -27,34 +27,72 @@ export class SupabaseService {
 
     return {
       id: user.id,
-      email: user.email ?? '', 
+      email: user.email ?? '',
       created_at: user.created_at ?? '',
     };
   }
 
-
-
-  registration(email:string, password:string, confirmPassword:string):Observable<{user:AppUser|null; error?:any}>{
-    if(password!==confirmPassword){
-      return of({user:null, error:{message:'Passwords not match!'}})
+  registration(
+    email: string,
+    password: string,
+    confirmPassword: string,
+  ): Observable<{ user: AppUser | null; error?: any }> {
+    if (password !== confirmPassword) {
+      return of({ user: null, error: { message: 'Passwords not match!' } });
     }
 
-    const promise=this.supabase.auth.signUp({email, password})
+    const promise = this.supabase.auth.signUp({ email, password });
 
-  return from(promise).pipe(
-    map(({ data, error }) => {
-      if (error) {
-        return { user: null, error };
-      }
-      const appUser = this.toAppUser(data.user);
-      return { user: appUser, error: null };
-    }),
-    catchError((err) => {
-      return of({ user: null, error: err });
-    })
-  );
-}
+    return from(promise).pipe(
+      map(({ data, error }) => {
+        if (error) {
+          return { user: null, error };
+        }
+        const appUser = this.toAppUser(data.user);
+        return { user: appUser, error: null };
+      }),
+      catchError((err) => {
+        return of({ user: null, error: err });
+      }),
+    );
+  }
+
+  login(email: string, password: string): Observable<{ user: AppUser | null; error?: any }> {
+    const promise = this.supabase.auth.signInWithPassword({ email, password });
+
+    return from(promise).pipe(
+      map(({ data, error }) => {
+        if (error) {
+          return { user: null, error };
+        }
+        const appUser = this.toAppUser(data.user);
+        return { user: appUser, error: null };
+      }),
+      catchError((err) => {
+        return of({ user: null, error: err });
+      }),
+    );
+  }
 
 
+  logout():Observable<void>{
+    const promise=this.supabase.auth.signOut()
 
+    return from(promise).pipe(
+      map(()=>undefined),
+      catchError(()=>of(undefined))
+      )
+    }
+
+    getCurrentUser():Observable<AppUser|null>{
+      const promise=this.supabase.auth.getUser()
+
+      return from(promise).pipe(
+        map(({data})=>this.toAppUser(data.user))
+      )
+    }
+
+    getSupabaseClient(): SupabaseClient {
+    return this.supabase;
+  }
 }
