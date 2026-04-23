@@ -1,1 +1,110 @@
-<p>create-new works!</p>
+<div class="create-page">
+    <div class="container">
+        <div class="create-header">
+            <h1>Създай обява</h1>
+            <p>Попълни информацията за лаптопа</p>
+        </div>
+
+        <div class="create-card">
+            <form>
+                <div class="form-section">
+                    <h3>Основна информация</h3>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Марка</label>
+                            <input type="text" placeholder="Dell" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Модел</label>
+                            <input type="text" placeholder="XPS 15" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Цена (€)</label>
+                            <input type="text" placeholder="2499" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Операционна система</label>
+                            <select>
+                                <option value="" disabled selected>Избери операционна система</option>
+                                <option value="Windows 11">Windows 11</option>
+                                <option value="Windows 10">Windows 10</option>
+                                <option value="Linux">Linux</option>
+                                <option value="macOS">macOS</option>
+                                <option value="ChromeOS">ChromeOS</option>
+                                <option value="Other">Друга</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Характеристики</h3>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Процесор</label>
+                            <input type="text" placeholder="Intel Core i9-13900H" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>RAM (GB)</label>
+                            <input type="text" placeholder="32" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Памет (GB)</label>
+                            <input type="text" placeholder="1000" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Размер на дисплея (inch)</label>
+                            <input type="number" step="0.1" placeholder="15.6" />
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label>Подсветка на клавиатурата</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="backlit" value="true" />
+                                    Да
+                                </label>
+
+                                <label class="radio-option">
+                                    <input type="radio" name="backlit" value="false" />
+                                    Не
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Снимка</h3>
+
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="text" placeholder="https://..." />
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Описание</h3>
+
+                    <div class="form-group">
+                        <textarea rows="5" placeholder="Опиши лаптопа..."></textarea>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary full-width">
+                    Публикувай обява
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
