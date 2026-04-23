@@ -118,10 +118,11 @@
   background-color: transparent;
   border: 1px solid #cbd5e1;
   color: #1f2937;
+  padding-inline: 40px;
 }
 
 .btn-outline:hover {
-  background-color: #f1f5f9;
+  background-color: #dcdee0;
 }
 
 .btn-small {
@@ -212,7 +213,7 @@
 }
 
 .search-section {
-  margin-top: -25px;
+  margin-top: 15px;
   position: relative;
   z-index: 2;
 }
@@ -245,7 +246,7 @@
 .categories,
 .products,
 .sell-section {
-  padding: 70px 0;
+  padding: 50px 0;
 }
 
 .section-heading {
@@ -280,6 +281,8 @@
 
 .category-card:hover {
   transform: translateY(-5px);
+  background-color: #e4e4e4;
+
 }
 
 .category-card h3 {
