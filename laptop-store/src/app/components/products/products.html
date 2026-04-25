@@ -1,19 +1,15 @@
-<section class="products">
-    <div class="container">
-        <div class="section-heading">
-            <h2>Най-нови обяви</h2>
-            <p>Разгледай последно добавените лаптопи</p>
-        </div>
+<div class="products-section">
+  <h2>Последнo добавени лаптопи</h2>
 
-        <div class="product-grid">
+   @if((products$ | async)?.length === 0) {
+    <br>
+    <h3>За момента няма добавени лаптопи</h3>
+  }
 
-
-            <app-product-card></app-product-card>
-
-
-
-
-
-        </div>
-    </div>
-</section>
+  
+  <div class="product-grid">
+    @for(product of (products$|async); track product.id) {
+      <app-product-card [product]="product"></app-product-card>
+    }
+  </div>
+</div>

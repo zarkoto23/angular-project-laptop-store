@@ -296,7 +296,10 @@
   line-height: 1.6;
 }
 
+
+
 .product-grid {
+  padding: 50px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
@@ -308,6 +311,14 @@
   overflow: hidden;
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
   transition: 0.3s;
+
+  margin: 20px
+}
+.products-section{
+  padding: 100px;
+  text-align: center;
+
+
 }
 
 .product-card:hover {

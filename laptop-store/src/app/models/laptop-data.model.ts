@@ -5,10 +5,10 @@ export interface LaptopData {
   price: number;
   inCartTo: string[];
   storage: number;
-  imageUrl: string;
+  image_url: string;
   processor: string;
   displaySize: number;
-  operatingSystem: 'Windows 11' | 'Windows 10' | 'Linux' | 'macOS' | 'ChromeOS' | 'Друга';
+  operating_system: 'Windows 11' | 'Windows 10' | 'Linux' | 'macOS' | 'ChromeOS' | 'Друга';
   class: 'Business' | 'Gaming' | 'Student' | 'Premium';
   description: string | null;
   backlight:boolean
