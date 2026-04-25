@@ -6,7 +6,7 @@ import { User } from '../models/user.model';
 import { environment } from '../../enviroments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SupabaseService {
   private supabase: SupabaseClient;
@@ -16,7 +16,6 @@ export class SupabaseService {
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
 
-    // Следим за промени в auth state
     this.supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
         const user = this.toAppUser(session.user);
@@ -37,40 +36,53 @@ export class SupabaseService {
   }
 
   login(email: string, password: string): Observable<{ user: User | null; error?: any }> {
-  console.log('🔐 Login опит за:', email);
-  
-  const promise = this.supabase.auth.signInWithPassword({ email, password });
-  
-  return from(promise).pipe(
-    map(({ data, error }) => {
-      console.log('📡 Supabase отговор:', { data, error });
-      
-      if (error) {
-        console.error('❌ Грешка при вход:', error.message);
-        return { user: null, error: error };
-      }
-      
-      const user = this.toAppUser(data.user);
-      console.log('✅ Успешен вход:', user?.email);
-      return { user, error: null };
-    }),
-    catchError((err) => {
-      console.error('💥 CatchError:', err);
-      return of({ user: null, error: err });
-    })
-  );
-}
+    const promise = this.supabase.auth.signInWithPassword({ email, password });
+
+    return from(promise).pipe(
+      map(({ data, error }) => {
+        if (error) {
+          return { user: null, error: error };
+        }
+
+        const user = this.toAppUser(data.user);
+        return { user, error: null };
+      }),
+      catchError((err) => {
+        return of({ user: null, error: err });
+      }),
+    );
+  }
+
+  register(email: string, password: string): Observable<{ user: User | null; error?: any }> {
+    const promise = this.supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    return from(promise).pipe(
+      map(({ data, error }) => {
+        if (error) {
+          return { user: null, error: error };
+        }
+
+        const user = this.toAppUser(data.user);
+        return { user, error: null };
+      }),
+      catchError((err) => {
+        return of({ user: null, error: err });
+      }),
+    );
+  }
 
   logout(): Observable<void> {
     const promise = this.supabase.auth.signOut();
     return from(promise).pipe(
       map(() => {
         this.currentUserSubject.next(null);
-      })
+      }),
     );
   }
 
-  // 👇 ТОЗИ МЕТОД ЛИПСВАШЕ - ДОБАВИ ГО
   getCurrentUserValue(): User | null {
     return this.currentUserSubject.getValue();
   }

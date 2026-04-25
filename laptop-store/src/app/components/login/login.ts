@@ -6,7 +6,6 @@ import { ErrorModal } from '../static/error-modal/error-modal';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   imports: [RouterLink, FormsModule, ErrorModal],
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
@@ -41,13 +40,13 @@ export class Login {
     this.supabaseService.login(this.email, this.password).subscribe({
       next: (response) => {
         if (response.error) {
-          this.showError('Въвели сте грешен имейл или парола');
+          this.showError('Грешен имейл или парола');
           this.password = '';
           this.cdr.detectChanges();
         } else if (response.user) {
           this.router.navigate(['/laptops']);
         } else {
-          this.showError('Неочаквана грешка');
+          this.showError('Нещо се обърка, опитай пак');
           this.cdr.detectChanges();
         }
       },
