@@ -1,7 +1,8 @@
 <div class="register-page">
     <div class="container">
         @if(showErrorModal){
-        <app-error-modal [message]="errorModalMessage" (closed)="closeErrorModal()"></app-error-modal>
+        <app-error-modal [message]="errorModalMessage" [type]="modalType"
+            (closed)="closeErrorModal()"></app-error-modal>
         }
         <div class="register-wrapper">
 

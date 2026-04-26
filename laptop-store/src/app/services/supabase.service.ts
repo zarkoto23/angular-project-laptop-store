@@ -4,7 +4,6 @@ import { Observable, from, of, BehaviorSubject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { environment } from '../../enviroments/environment';
-import { Laptop } from '../models/laptop.model';
 
 @Injectable({
   providedIn: 'root',
@@ -83,49 +82,6 @@ export class SupabaseService {
       }),
     );
   }
-
-  getLatestProducts(limit: number = 5): Observable<Laptop[]> {
-  return from(
-    this.supabase
-      .from('laptops')  // <- името на вашата таблица
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(limit)
-  ).pipe(
-    map(({ data, error }) => {
-      if (error) {
-        console.error('Грешка:', error);
-        return [];
-      }
-      return (data as Laptop[]) || [];
-    }),
-    catchError((err) => {
-      console.error('Грешка:', err);
-      return of([]);
-    })
-  );
-}
-
-getAllProducts(): Observable<Laptop[]> {
-  return from(
-    this.supabase
-      .from('laptops')  // <- името на вашата таблица
-      .select('*')
-      .order('created_at', { ascending: false })
-  ).pipe(
-    map(({ data, error }) => {
-      if (error) {
-        console.error('Грешка:', error);
-        return [];
-      }
-      return (data as Laptop[]) || [];
-    }),
-    catchError((err) => {
-      console.error('Грешка:', err);
-      return of([]);
-    })
-  );
-}
 
   getCurrentUserValue(): User | null {
     return this.currentUserSubject.getValue();

@@ -103,7 +103,6 @@
     margin-top: 20px;
 }
 
-/* ако ползваш глобални btn стилове, това не е задължително */
 .btn {
     border: none;
     border-radius: 10px;
@@ -134,4 +133,19 @@
     .create-header h1 {
         font-size: 30px;
     }
+}
+
+.form-group input.invalid,
+.form-group select.invalid,
+.form-group textarea.invalid {
+    border: 0px solid #ddd;
+    box-shadow: 0 0 0 1px #f44336;
+    border-radius: 10px;
+}
+
+.form-group span {
+    color: red;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-left: 5px;
 }

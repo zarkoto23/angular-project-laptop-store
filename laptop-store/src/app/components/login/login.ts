@@ -16,6 +16,7 @@ export class Login {
 
   showErrorModal: boolean = false;
   errorModalMessage: string = '';
+  modalType: 'error' | 'success' = 'error';
 
   constructor(
     private supabaseService: SupabaseService,
@@ -57,15 +58,17 @@ export class Login {
     });
   }
 
-  showError(message: string) {
+  showError(message: string, type: 'error' | 'success' = 'error') {
     this.errorModalMessage = message;
     this.showErrorModal = true;
+    this.modalType = type;
     this.cdr.detectChanges();
   }
 
   closeErrorModal() {
     this.showErrorModal = false;
     this.errorModalMessage = '';
+
     this.cdr.detectChanges();
   }
 

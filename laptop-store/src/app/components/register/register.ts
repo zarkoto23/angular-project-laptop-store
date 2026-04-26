@@ -17,6 +17,7 @@ export class Register {
 
   showErrorModal: boolean = false;
   errorModalMessage: string = '';
+  modalType: 'error' | 'success' = 'error';
 
   constructor(
     private supabaseService: SupabaseService,
@@ -26,14 +27,14 @@ export class Register {
 
   onRegister() {
     if (!this.email || !this.password || !this.rePass) {
-      this.showError('Попълнете всички полета!');
+      this.showError('Попълнете всички полета!', 'error');
       this.password = '';
       this.rePass = '';
       return;
     }
 
     if (!this.isValidEmail(this.email)) {
-      this.showError('Невалиден имейл');
+      this.showError('Невалиден имейл', 'error');
       this.email = '';
       this.password = '';
       this.rePass = '';
@@ -41,17 +42,17 @@ export class Register {
     }
 
     if (this.password.length < 6) {
-      this.showError('Паролата трябва да съдържа най-малко 6 символа');
+      this.showError('Паролата трябва да съдържа най-малко 6 символа', 'error');
       this.password = '';
       this.rePass = '';
-      return; // ← СПИРАМЕ
+      return;
     }
 
     if (this.password !== this.rePass) {
-      this.showError('Паролите не съвпадат');
+      this.showError('Паролите не съвпадат', 'error');
       this.password = '';
       this.rePass = '';
-      return; // ← СПИРАМЕ
+      return;
     }
 
     this.supabaseService.register(this.email, this.password).subscribe({
@@ -61,27 +62,30 @@ export class Register {
           if (response.error.message?.includes('already registered')) {
             errorMessage = 'Този имейл вече е регистриран';
           }
-          this.showError(errorMessage);
+          this.showError(errorMessage, 'error');
           this.password = '';
           this.rePass = '';
           this.cdr.detectChanges();
         } else if (response.user) {
-          this.router.navigate(['/laptops']);
+          this.showError('Профилът е успешно създаден!', 'success');
+          this.cdr.detectChanges();
+          // this.router.navigate(['/laptops']);
         } else {
-          this.showError('Нещо се обърка, опитай пак');
+          this.showError('Нещо се обърка, опитай пак', 'error');
           this.cdr.detectChanges();
         }
       },
       error: (err) => {
-        this.showError(`Възникна грешка: ${err.message || err}`);
+        this.showError(`Възникна грешка: ${err.message || err}`, 'error');
         this.cdr.detectChanges();
       },
     });
   }
 
-  showError(message: string) {
+  showError(message: string, type: 'error' | 'success' = 'error') {
     this.errorModalMessage = message;
     this.showErrorModal = true;
+    this.modalType = type;
     this.cdr.detectChanges();
   }
 
