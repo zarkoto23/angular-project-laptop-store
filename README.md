@@ -2,11 +2,12 @@
 
 **[🔗 Deployed Application Link Here](https://laptop-store-3f59e.web.app/)**  
 
-```bash
-Test Credentials:
-email: admin1@gmail.com,
-password: admin1
-```
+## Test Credentials
+
+| Field      | Value              |
+|------------|--------------------|
+| **Email**  | `admin1@gmail.com` |
+| **Password** | `admin1`         |
 ## How to run the project
 
 ```bash
@@ -28,23 +29,26 @@ ng serve
 
 ## Technology Stack
 
+- **CI/CD:** GitHub Actions (automated build & deploy)
+- **Backend & Database:** Supabase (PostgreSQL database + Authentication API)
 - **Frontend:** Angular (version 16+)
-- **Backend:** Supabase (PostgreSQL + Authentication)
 - **State management:** Services with RxJS Subjects, BehaviorsSubjects, Signals
-- **HTTP Client:** Supabase JS client
+- **HTTP Client:** Supabase JS client (@supabase/supabase-js)
 - **Styling:** Custom CSS (no external framework)
 - **Routing:** Angular Router with route guards
 
 ## Key Angular concepts used
 
 - TypeScript interfaces (Laptop, User)
-- RxJS Observables and operators (`of`, `map`, `take`)
-- Lifecycle hooks (`ngOnInit`)
-- Custom pipes
+- RxJS Observables and operators (`of`, `map`, `take` and `etc`)
+- Lifecycle hooks (`ngOnInit`, `ngOnDestroy` and `etc `)
+- Pipes (`asyncPipe` and `etc`)
+- Signals
 - Angular services (dependency injection)
-- Reactive Forms with validation
-- Route guards (CanActivate)
-- Error handling (try/catch, modal feedback)
+- Reactive Forms with validation (on create page)
+- Route guards (CanActivate, Guard services)
+- Error handling (modal feedback)
+- Lazy loading
 
 
 
@@ -90,6 +94,22 @@ The application is an online laptop store where users can browse laptops, regist
 - **Form validation:** All forms (registration, login, add/edit laptop) include validation rules with clear error messages.
 
 - **Error handling:** Network errors, invalid input, and empty states are handled gracefully with user-friendly messages.
+
+## Routing Structure
+
+| Route             | Component              | Guard 
+|-------------------|----------------------- |-------
+| `/home`           | HomeComponent          | Public 
+| `/all-laptops`    | AllLaptopsComponent    | Public 
+| `/add-laptop`     | AddLaptopComponent     | AuthGuard 
+| `/profile`        | ProfileComponent       | AuthGuard 
+| `/login`          | LoginComponent         | GuestGuard
+| `/register`       | RegisterComponent      | GuestGuard
+| `/laptop/:id`     | LaptopDetailsComponent | Public
+| `/profile/:userId`| ProfileComponent	      | AuthGuard
+| `/edit-laptop/:id`| EditLaptopComponent	   | AuthGuard, OwnerGuard
+
+**Route parameters example:** `/laptop/123` – fetches laptop with ID 123
 
 ## How the user interacts with the system
 
