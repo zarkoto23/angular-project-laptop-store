@@ -150,19 +150,25 @@
 
 .btn-edit,
 .btn-delete,
-.btn-cart {
+.btn-cart,
+.btn-in-cart {
   flex: 1;
   padding: 12px 24px;
   border: none;
   border-radius: 12px;
   font-size: 16px;
   font-weight: 500;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   transition: all 0.3s ease;
+}
+
+.btn-edit,
+.btn-delete,
+.btn-cart {
+  cursor: pointer;
 }
 
 .btn-edit {
@@ -192,6 +198,36 @@
 
 .btn-cart:hover {
   background-color: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.btn-in-cart {
+  background-color: #10b981;
+  color: white;
+  cursor: default;
+  opacity: 0.9;
+}
+
+.btn-remove {
+  flex: 1;
+  background-color: transparent;
+  color: #ef4444;
+  padding: 10px 24px;
+  border: 2px solid #ef4444;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-remove:hover {
+  background-color: #ef4444;
+  color: white;
   transform: translateY(-2px);
 }
 
@@ -239,7 +275,14 @@
 
   .btn-edit,
   .btn-delete,
-  .btn-cart {
+  .btn-cart,
+  .btn-in-cart,
+  .btn-remove {
+    width: 100%;
+  }
+
+  .cart-actions {
+    flex-direction: column;
     width: 100%;
   }
 }
@@ -263,6 +306,12 @@
     align-items: flex-start;
     gap: 8px;
   }
+
+  .btn-in-cart,
+  .btn-remove {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
 }
 
 .cart-actions {
@@ -272,70 +321,6 @@
   flex: 1;
 }
 
-.btn-in-cart {
-  flex: 1;
-  background-color: #10b981;
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: default;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  opacity: 0.9;
-  transition: all 0.3s ease;
-}
-
-.btn-remove {
-  flex: 1;
-  background-color: transparent;
-  color: #ef4444;
-  padding: 10px 24px;
-  border: 2px solid #ef4444;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-}
-
-.btn-remove:hover {
-  background-color: #ef4444;
-  color: white;
-  transform: translateY(-2px);
-}
-
-.btn-remove:active {
-  transform: translateY(0);
-}
-
-@media (max-width: 768px) {
-  .cart-actions {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .btn-in-cart,
-  .btn-remove {
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .btn-in-cart,
-  .btn-remove {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
-}
 
 @keyframes btnPulse {
   0% {
@@ -351,42 +336,9 @@
 
 .btn-remove:active {
   animation: btnPulse 0.2s ease;
+  transform: translateY(0);
 }
 
-.btn-cart::before {
-  font-size: 16px;
-}
-
-.btn-in-cart::before {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.btn-remove::before {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.btn-edit::before {
-  font-size: 14px;
-}
-
-.btn-delete::before {
-  font-size: 14px;
-}
-
-.btn-back::before {
-  font-size: 18px;
-}
-
-.product-actions:empty {
-  display: none;
-}
-#p-description{
-  max-width: 470px;
-}
-
-/* Read more стилове */
 .read-more-trigger,
 .read-less-trigger {
   cursor: pointer;
