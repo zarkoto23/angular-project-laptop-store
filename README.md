@@ -1,59 +1,111 @@
-# LaptopStore
+# Laptop Store
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.4.
-
-## Development server
-
-To start a local development server, run:
+**[🔗 Deployed Application Link Here](https://laptop-store-3f59e.web.app/)**  
 
 ```bash
+Test Credentials:
+email: admin1@gmail.com,
+password: admin1
+```
+## How to run the project
+
+```bash
+# Clone the repository
+git clone <repository-url>
+
+# Navigate to project folder
+cd laptop-store
+
+# Install dependencies
+npm install
+
+# Run the development server
 ng serve
+
+# Open browser at http://localhost:4200
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+## Technology Stack
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Frontend:** Angular (version 16+)
+- **Backend:** Supabase (PostgreSQL + Authentication)
+- **State management:** Services with RxJS Subjects, BehaviorsSubjects, Signals
+- **HTTP Client:** Supabase JS client
+- **Styling:** Custom CSS (no external framework)
+- **Routing:** Angular Router with route guards
 
-```bash
-ng generate component component-name
-```
+## Key Angular concepts used
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- TypeScript interfaces (Laptop, User)
+- RxJS Observables and operators (`of`, `map`, `take`)
+- Lifecycle hooks (`ngOnInit`)
+- Custom pipes
+- Angular services (dependency injection)
+- Reactive Forms with validation
+- Route guards (CanActivate)
+- Error handling (try/catch, modal feedback)
 
-```bash
-ng generate --help
-```
 
-## Building
 
-To build the project run:
 
-```bash
-ng build
-```
+## Purpose of the application
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The application is an online laptop store where users can browse laptops, register or log in, add laptops to their cart, and create their own laptop listings. Registered users can edit and delete only the laptops they have created. The application provides a personalized experience through a profile page that shows both user-created laptops and items added to the cart.
 
-## Running unit tests
+## Main user flows
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+1. **Registration & Login:** New users create an account using email and password. Existing users log in to access private features. (Test credentials: `admin1@gmail.com` / `admin1`)
 
-```bash
-ng test
-```
+2. **Browsing laptops:**
+   - **Home page** – displays the last 5 added laptops
+   - **All laptops page** – displays the full catalog
 
-## Running end-to-end tests
+3. **Managing laptops (authenticated users only):**
+   - Add a new laptop (brand, model, price, description, specifications, image URL)
+   - Edit own laptops
+   - Delete own laptops (with confirmation modal)
 
-For end-to-end (e2e) testing, run:
+4. **Shopping cart:**
+   - Add laptops to cart
+   - Remove laptops from cart
+   - View cart contents in the Profile page
 
-```bash
-ng e2e
-```
+5. **User profile:**
+   - View and manage own created laptops
+   - View current cart items
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+6. **Logout:** Ends the user session
 
-## Additional Resources
+## Explanation of the core features
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **CRUD operations:** Full Create, Read, Update, Delete support for laptops. Users can only edit and delete their own listings.
+
+- **Shopping cart:** Users can add and remove laptops from a personal cart. Cart contents are saved per user and visible in the Profile page.
+
+- **Route guards:** Unauthenticated users cannot access Add Laptop, Profile, or Cart routes. Logged-in users cannot access Login or Register pages.
+
+- **User feedback modals:** Success and error modals notify users about actions (laptop added to cart, deleted, etc.). A confirmation modal appears before deleting a laptop.
+
+- **Form validation:** All forms (registration, login, add/edit laptop) include validation rules with clear error messages.
+
+- **Error handling:** Network errors, invalid input, and empty states are handled gracefully with user-friendly messages.
+
+## How the user interacts with the system
+
+- **Navigation:** The main navigation bar provides links to Home, All Laptops, Add Laptop (visible only when logged in), Profile, Login/Register, and Logout.
+
+- **Home page:** Shows the 5 most recently added laptops with a "View Details" button for each.
+
+- **All laptops page:** Displays the complete laptop catalog. Each laptop card shows basic info and has "Details", "Edit", "Delete" buttons (Edit/Delete visible only to the owner).
+
+- **Add/Edit laptop form:** Users fill out a reactive form with validation. Upon success, a modal confirms the action and redirects to All laptops page.
+
+- **Profile page:** Split view showing:
+  - "My laptops" – laptops created by the logged-in user with edit/delete options
+  - "My cart" – laptops added to the user's cart with remove option
+
+- **Confirmation modals:** Before delete actions, a modal asks for confirmation. After success/failure, an appropriate modal appears.
+
+- **State management:** Uses Angular services with RxJS Subjects, BehaviorsSubjects, and Signals. Data flows through observables with operators like `of`, `map`, `take`.
+
